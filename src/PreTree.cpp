@@ -3,19 +3,25 @@
 //
 
 #include "../include/PreTree.h"
+//#include <boost/algorithm/string.hpp>
 #include <string>
+#include <iostream>
 using namespace std;
 
 //TODO: implement toString()
 string PreTree::toString() {
-    return "";
+    string result;
+    for(string label: this->prefixTree) {
+        result += (label + " ");
+    }
+    return result;
 }
 
-PreTree::PreTree() {
-    vector<string> prefTree;
-    this->prefixTree = prefTree;
+PreTree::PreTree(const string& label) {
+    this->prefixTree.push_back(label);
 }
 
-PreTree PreTree::grow(GrowElem &GE) {
-    return PreTree();
+PreTree* PreTree::grow(GrowElem &GE) {
+    this->prefixTree.push_back(GE.getLabel());
+    return this;
 }

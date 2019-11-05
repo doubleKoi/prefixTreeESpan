@@ -16,8 +16,8 @@ private:
     vector<string> prefixTree;      //subtree pattern
 
 public:
-    PreTree();
-    PreTree grow(GrowElem &GE);
+    PreTree(const string& label);
+    PreTree * grow(GrowElem &GE);
     string toString();
 };
 

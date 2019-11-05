@@ -15,6 +15,7 @@ private:
 
 public:
     GrowElem(string label, int attachedTo);
+    string getLabel();
     bool operator==(const GrowElem &GE) const;
 };
 

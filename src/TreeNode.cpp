@@ -8,7 +8,7 @@
 using namespace std;
 
 TreeNode::TreeNode(string label, int pos, int minusPos) {
-    this->label = std::move(label);
+    this->label = move(label);
     this->pos = pos;
     this->minusPos = minusPos;
 }
