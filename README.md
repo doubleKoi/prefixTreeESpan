@@ -1,3 +1,3 @@
 # prefixTreeESpan
 
-Assignment 1 for course Mining and Management of Large
+Assignment 1 for course Mining and Management of Large-Scale Graph Data
