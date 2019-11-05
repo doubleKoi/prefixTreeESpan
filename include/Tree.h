@@ -13,10 +13,12 @@ class Tree {
 private:
     int tranID;
     vector<TreeNode> tree;
+    vector<string> uniqLabels;
 
 public:
     Tree(int tranID, string line);
     static vector<string> split(string& str, char delimiter);
+    vector<string> getUniqLabels();
 };
 
 

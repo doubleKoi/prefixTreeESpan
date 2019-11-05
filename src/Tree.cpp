@@ -5,6 +5,7 @@
 #include "../include/Tree.h"
 #include <sstream>
 #include <stack>
+#include <algorithm>
 using namespace std;
 
 struct RawNode{
@@ -23,6 +24,14 @@ Tree::Tree(int tranID, string line) {
         if (treeVector[i] != "-1") {
             RawNode rn = {treeVector[i], i+1};
             inStack.push(rn);
+
+            //record unique label in this tree
+            auto begin = this->uniqLabels.begin();
+            auto end = this->uniqLabels.end();
+
+            if (find(begin, end, treeVector[i]) != end)
+                this->uniqLabels.push_back(treeVector[i]);
+
         } else {
             RawNode rn = inStack.top();
             inStack.pop();
@@ -43,4 +52,8 @@ vector<string> Tree::split(string &str, char delimiter) {
     }
 
     return result;
+}
+
+vector<string> Tree::getUniqLabels() {
+    return this->uniqLabels;
 }

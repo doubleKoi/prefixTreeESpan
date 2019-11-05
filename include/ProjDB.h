@@ -6,6 +6,8 @@
 #define PREFIXTREEESPAN_PROJDB_H
 
 #include <vector>
+#include "Tree.h"
+#include "PreTree.h"
 #include "ProjInst.h"
 #include "GrowElem.h"
 using namespace std;
@@ -17,7 +19,7 @@ private:
 public:
     ProjDB();
     vector<GrowElem> getFreqGEs();
-    static ProjDB getProjDB();
+    static ProjDB ProDB(vector<Tree> &trees, PreTree &preTree);
 };
 
 

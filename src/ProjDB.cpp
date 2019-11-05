@@ -11,3 +11,8 @@ ProjDB::ProjDB() {
 vector<GrowElem> ProjDB::getFreqGEs() {
     return vector<GrowElem>();
 }
+
+ProjDB ProjDB::ProDB(vector<Tree> &trees, PreTree &preTree) {
+    return ProjDB();
+}
+
