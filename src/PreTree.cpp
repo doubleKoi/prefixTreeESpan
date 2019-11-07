@@ -19,6 +19,7 @@ string PreTree::toString() {
 
 PreTree::PreTree(const string& label) {
     this->prefixTree.push_back(label);
+    this->prefixTree.emplace_back("-1");
 }
 
 PreTree* PreTree::grow(GrowElem &GE) {

@@ -22,7 +22,6 @@ private:
     int tranID;
 
 public:
-    ProjInst();
     void setProjInst(vector<ProjInstNode> projInst);
     void setTranID(int tranID);
     ProjInst Project(string label);

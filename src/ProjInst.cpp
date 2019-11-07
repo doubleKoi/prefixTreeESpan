@@ -7,11 +7,6 @@
 #include <utility>
 using namespace std;
 
-//TODO: implement Project()
-/*ProjInst ProjInst::Project(string label) {
-
-}*/
-
 void ProjInst::setProjInst(vector<ProjInstNode> projInst) {
     for(ProjInstNode node: projInst){
         this->projInst.push_back(node);
@@ -20,4 +15,9 @@ void ProjInst::setProjInst(vector<ProjInstNode> projInst) {
 
 void ProjInst::setTranID(int tranID) {
     this->tranID = tranID;
+}
+
+//TODO: implement Project()
+ProjInst ProjInst::Project(string label) {
+    return ProjInst();
 }

@@ -5,6 +5,9 @@
 #include <string>
 #include <fstream>
 #include "include/Tree.h"
+#include "include/PreTree.h"
+#include "include/ProjDB.h"
+
 using namespace std;
 
 void prefixTreeESpanMiner(string dataPath, double minSup) {
@@ -44,12 +47,17 @@ void prefixTreeESpanMiner(string dataPath, double minSup) {
         }
     }
 
-    //get frequent length-1 labels
-    vector<string> freqLabels;
+    //get frequent length-1 labels and begin mining
+    //vector<string> freqLabels;
     auto iter = labelCount.begin();
     for(;iter != labelCount.end(); ++iter) {
         if (iter->second >= minSup) {
-            freqLabels.push_back(iter->first);
+            //freqLabels.push_back(iter->first);
+            PreTree singlePreTree = PreTree(iter->first);   //construct length-1 prefix tree
+            cout << singlePreTree.toString() << endl;
+
+            ProjDB projDB = ProjDB::ProDB(DB, singlePreTree);   //get <b -1> projected database
+            projDB.Fre(DB, singlePreTree, minSup);
         }
     }
 }
