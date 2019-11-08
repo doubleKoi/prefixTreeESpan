@@ -3,6 +3,7 @@
 //
 
 #include "../include/GrowElem.h"
+#include "../include/Tree.h"
 
 #include <utility>
 #include <string>
@@ -28,4 +29,10 @@ bool GrowElem::operator<(const GrowElem &GE) const {
 
 string GrowElem::toString() {
     return this->label + "," + to_string(this->attachedTo);
+}
+
+GrowElem::GrowElem(string GEStr) {
+    vector<string> v = Tree::split(GEStr, ',');
+    this->label = v[0];
+    this->attachedTo = atoi(v[1].c_str());
 }

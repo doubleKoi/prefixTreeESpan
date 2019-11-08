@@ -4,15 +4,35 @@
 
 #include <iostream>
 #include <map>
+#include <string>
 #include "../include/ProjDB.h"
 using namespace std;
 
 ProjDB::ProjDB() = default;
 
-//TODO: implement getFreqGEs()
-vector<GrowElem> ProjDB::getFreqGEs() {
+vector<GrowElem> ProjDB::getFreqGEs(double minSup) {
     vector<GrowElem> freqGEs;
-    map<GrowElem, int> GEFreq;
+    map<string, int> GEFreq;
+    for (ProjInst inst: this->projDB) {
+        vector<GrowElem> GEs = inst.getGEs();
+        for (GrowElem GE: GEs) {
+            string str = GE.toString();
+            if (GEFreq.find(str) != GEFreq.end()) {
+                auto iter = GEFreq.find(str);
+                iter->second += 1;
+            } else {
+                GEFreq.insert(make_pair(str, 1));
+            }
+        }
+    }
+
+    for (auto iter = GEFreq.begin(); iter != GEFreq.end(); ++iter) {
+        if (iter->second >= minSup) {
+            GrowElem growElem = GrowElem(iter->first);
+            freqGEs.push_back(growElem);
+        }
+    }
+
 }
 
 //get length-1 projected database
@@ -29,7 +49,7 @@ ProjDB ProjDB::ProDB(vector<Tree> &trees, string freLabel) {
 }
 
 void ProjDB::Fre(vector<Tree> &DB, PreTree &preTree, double minSup) {
-    vector<GrowElem> freqGEs = this->getFreqGEs();
+    vector<GrowElem> freqGEs = this->getFreqGEs(minSup);
     if (freqGEs.empty()) {
         return;
     }

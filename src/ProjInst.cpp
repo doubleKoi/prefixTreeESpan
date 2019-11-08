@@ -3,6 +3,7 @@
 //
 
 #include "../include/ProjInst.h"
+#include <algorithm>
 
 #include <utility>
 using namespace std;
@@ -22,13 +23,18 @@ ProjInst::ProjInst(int tranID) {
     this->tranID = tranID;
 }
 
-//TODO: implement getGEs()
 vector<GrowElem> ProjInst::getGEs() {
     vector<GrowElem> GEs;
+    vector<string> GEStrs;
 
     for (ProjInstNode node: this->projInst) {
         GrowElem GE = GrowElem(node.label, node.attachedTo);
-
+        string key = GE.toString();
+        auto iter = find(GEStrs.begin(), GEStrs.end(), key);
+        if (iter == GEStrs.end()) {
+            GEs.push_back(GE);
+            GEStrs.push_back(key);
+        }
     }
     return GEs;
 }
