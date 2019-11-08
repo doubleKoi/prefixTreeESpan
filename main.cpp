@@ -54,9 +54,9 @@ void prefixTreeESpanMiner(string dataPath, double minSup) {
         if (iter->second >= minSup) {
             //freqLabels.push_back(iter->first);
             PreTree singlePreTree = PreTree(iter->first);   //construct length-1 prefix tree
-            cout << singlePreTree.toString() << endl;
+            cout << iter->first << endl;
 
-            ProjDB projDB = ProjDB::ProDB(DB, singlePreTree);   //get <b -1> projected database
+            ProjDB projDB = ProjDB::ProDB(DB, iter->first);   //get <b -1> projected database
             projDB.Fre(DB, singlePreTree, minSup);
         }
     }

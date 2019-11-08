@@ -7,17 +7,28 @@
 #include <utility>
 using namespace std;
 
-void ProjInst::setProjInst(vector<ProjInstNode> projInst) {
-    for(ProjInstNode node: projInst){
+void ProjInst::setProjInst(vector<ProjInstNode> &projInst) {
+    for(const ProjInstNode& node: projInst){
         this->projInst.push_back(node);
     }
-}
-
-void ProjInst::setTranID(int tranID) {
-    this->tranID = tranID;
 }
 
 //TODO: implement Project()
 ProjInst ProjInst::Project(string label) {
     return ProjInst();
+}
+
+ProjInst::ProjInst(int tranID) {
+    this->tranID = tranID;
+}
+
+//TODO: implement getGEs()
+vector<GrowElem> ProjInst::getGEs() {
+    vector<GrowElem> GEs;
+
+    for (ProjInstNode node: this->projInst) {
+        GrowElem GE = GrowElem(node.label, node.attachedTo);
+
+    }
+    return GEs;
 }

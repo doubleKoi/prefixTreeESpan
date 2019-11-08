@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "TreeNode.h"
+#include "ProjInst.h"
 using namespace std;
 
 class Tree {
@@ -19,6 +20,7 @@ public:
     Tree(int tranID, string line);
     static vector<string> split(string& str, char delimiter);
     vector<string> getUniqLabels();
+    vector<ProjInst> Project(const string& label);
 };
 
 

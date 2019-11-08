@@ -13,7 +13,6 @@ struct RawNode{
     int pos;
 };
 
-//TODO: construct tree from file line
 Tree::Tree(int tranID, string line) {
     this->tranID = tranID;
 
@@ -56,4 +55,30 @@ vector<string> Tree::split(string &str, char delimiter) {
 
 vector<string> Tree::getUniqLabels() {
     return this->uniqLabels;
+}
+
+vector<ProjInst> Tree::Project(const string& label) {
+    vector<ProjInst> instances;
+
+    for (int i = 0; i < this->tree.size(); i++) {
+        TreeNode node = this->tree[i];
+        string lb = node.getLabel();
+        if (lb == label) {
+            vector<ProjInstNode> nodes;
+            ProjInst instance = ProjInst(this->tranID);
+
+            for (int j = i+1; j < tree.size(); j++) {
+                TreeNode nd = this->tree[j];
+                if (nd.getPos() < node.getMinusPos()) {
+                    ProjInstNode node = {nd.getLabel(), nd.getPos(), 1};
+                    nodes.push_back(node);
+                } else {
+                    break;
+                }
+            }
+            instance.setProjInst(nodes);
+            instances.push_back(instance);
+        }
+    }
+    return instances;
 }

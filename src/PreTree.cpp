@@ -26,3 +26,5 @@ PreTree* PreTree::grow(GrowElem &GE) {
     this->prefixTree.push_back(GE.getLabel());
     return this;
 }
+
+PreTree::PreTree() = default;
