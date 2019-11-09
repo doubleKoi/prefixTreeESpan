@@ -9,6 +9,8 @@
 #include <string>
 #include "TreeNode.h"
 #include "GrowElem.h"
+#include "Tree.h"
+#include "PreTree.h"
 using namespace std;
 
 //node in project instance
@@ -26,7 +28,7 @@ private:
 public:
     ProjInst(int tranID);
     void setProjInst(vector<ProjInstNode> &projInst);
-    ProjInst Project(string label);
+    vector<ProjInst> Project(Tree &tree, PreTree &preTree);
     vector<GrowElem> getGEs();
 };
 

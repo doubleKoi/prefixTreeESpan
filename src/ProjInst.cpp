@@ -15,8 +15,13 @@ void ProjInst::setProjInst(vector<ProjInstNode> &projInst) {
 }
 
 //TODO: implement Project()
-ProjInst ProjInst::Project(string label) {
-    return ProjInst();
+vector<ProjInst> ProjInst::Project(Tree& tree, PreTree &preTree) {
+    ProjInst result = ProjInst(this->tranID);
+    for (ProjInstNode node: this->projInst) {
+        if (node.label == label) {
+
+        }
+    }
 }
 
 ProjInst::ProjInst(int tranID) {
