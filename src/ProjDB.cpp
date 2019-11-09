@@ -36,7 +36,7 @@ vector<GrowElem> ProjDB::getFreqGEs(double minSup) {
 }
 
 //get length-1 projected database
-ProjDB ProjDB::ProDB(vector<Tree> &trees, string freLabel) {
+ProjDB ProjDB::ProDB(vector<Tree> &trees, const string& freLabel) {
     ProjDB projDB = ProjDB();
     for (Tree tree: trees) {
         vector<ProjInst> instances = tree.Project(freLabel);

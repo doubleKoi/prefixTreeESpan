@@ -15,11 +15,19 @@ void ProjInst::setProjInst(vector<ProjInstNode> &projInst) {
 }
 
 //TODO: implement Project()
-vector<ProjInst> ProjInst::Project(Tree& tree, PreTree &preTree) {
-    ProjInst result = ProjInst(this->tranID);
-    for (ProjInstNode node: this->projInst) {
-        if (node.label == label) {
+vector<ProjInst> ProjInst::Project(Tree& tree, string &label) {
+    vector<ProjInst> result;
+    for (auto iter = this->projInst.begin(); iter != this->projInst.end(); ++iter) {
+        if (iter->label == label) {
+            int beginIdx = tree.getIdxByPos(iter->pos);
+            int p = tree.getIdxByPos((this->prefix)[0].pos);
+            int endIdx = tree.getNodeByIdx(p).getMinusPos();
 
+            for (auto newIter = iter; newIter != this->projInst.end(); ++newIter) {
+                if ((*newIter).pos > beginIdx && (*newIter).pos < endIdx) {
+
+                }
+            }
         }
     }
 }
@@ -42,4 +50,10 @@ vector<GrowElem> ProjInst::getGEs() {
         }
     }
     return GEs;
+}
+
+void ProjInst::setPrefix(vector<ProjInstNode> &nodes) {
+    for (ProjInstNode node: nodes) {
+        this->prefix.push_back(node);
+    }
 }

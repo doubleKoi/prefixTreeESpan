@@ -77,8 +77,33 @@ vector<ProjInst> Tree::Project(const string& label) {
                 }
             }
             instance.setProjInst(nodes);
+
+            vector<ProjInstNode> curPattern;
+            ProjInstNode n = {lb, i, 0};
+            curPattern.push_back(n);
+            instance.setPrefix(curPattern);
+
             instances.push_back(instance);
         }
     }
     return instances;
+}
+
+int Tree::getTranID() {
+    return this->tranID;
+}
+
+int Tree::getIdxByPos(int pos) {
+    for (int i = 0; i < this->tree.size(); i++) {
+        if (this->tree[i].getPos() == pos) {
+            return i;
+        } else {
+            continue;
+        }
+    }
+    return -1;
+}
+
+TreeNode Tree::getNodeByIdx(int idx) {
+    return this->tree[idx];
 }

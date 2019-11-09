@@ -21,6 +21,9 @@ public:
     static vector<string> split(string& str, char delimiter);
     vector<string> getUniqLabels();
     vector<ProjInst> Project(const string& label);
+    int getTranID();
+    int getIdxByPos(int pos);
+    TreeNode getNodeByIdx(int idx);
 };
 
 

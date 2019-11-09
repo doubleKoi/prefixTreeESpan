@@ -23,13 +23,15 @@ struct ProjInstNode {
 class ProjInst {
 private:
     vector<ProjInstNode> projInst;
+    vector<ProjInstNode> prefix;
     int tranID;
 
 public:
     ProjInst(int tranID);
     void setProjInst(vector<ProjInstNode> &projInst);
-    vector<ProjInst> Project(Tree &tree, PreTree &preTree);
+    vector<ProjInst> Project(Tree &tree, string &label);
     vector<GrowElem> getGEs();
+    void setPrefix(vector<ProjInstNode> &nodes);
 };
 
 #endif //PREFIXTREEESPAN_PROJINST_H
