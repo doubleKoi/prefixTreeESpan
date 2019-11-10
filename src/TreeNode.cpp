@@ -24,3 +24,7 @@ int TreeNode::getPos() {
 int TreeNode::getMinusPos() {
     return this->minusPos;
 }
+
+bool TreeNode::operator<(TreeNode &treeNode) {
+    return this->pos < treeNode.pos;
+}

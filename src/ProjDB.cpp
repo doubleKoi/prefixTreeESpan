@@ -32,14 +32,14 @@ vector<GrowElem> ProjDB::getFreqGEs(double minSup) {
             freqGEs.push_back(growElem);
         }
     }
-
+    return freqGEs;
 }
 
 //get length-1 projected database
 ProjDB ProjDB::ProDB(vector<Tree> &trees, const string& freLabel) {
     ProjDB projDB = ProjDB();
     for (Tree tree: trees) {
-        vector<ProjInst> instances = tree.Project(freLabel);
+        vector<ProjInst> instances = ProjInst::treeProject(tree, freLabel);
         projDB.insertProjInst(instances);
     }
     PreTree pt = PreTree(freLabel);
@@ -69,7 +69,9 @@ ProjDB ProjDB::ProDB(vector<Tree> &DB, ProjDB &projDB, PreTree &preTree, const s
     result.setPattern(preTree);
     for (ProjInst inst: projDB.projDB) {
         vector<ProjInst> proj = inst.Project(DB[inst.getTranID()], label);
-        result.insertProjInst(proj);
+        if (!result.empty()) {
+            result.insertProjInst(proj);
+        }
     }
     return result;
 }

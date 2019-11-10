@@ -19,6 +19,7 @@ public:
     string getLabel();
     int getPos();
     int getMinusPos();
+    bool operator<(TreeNode &treeNode);
 };
 
 #endif //PREFIXTREEESPAN_TREENODE_H

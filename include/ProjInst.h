@@ -29,11 +29,12 @@ private:
 public:
     ProjInst(int tranID);
     void setProjInst(vector<ProjInstNode> &projInst);
-    vector<ProjInst> Project(Tree &tree, string &label);
+    vector<ProjInst> Project(Tree &tree, const string &label);
     vector<GrowElem> getGEs();
     void setPrefix(vector<ProjInstNode> &nodes);
     static int getAttachedTo(Tree &tree, vector<ProjInstNode> &prefix, int pos);
     int getTranID();
+    static vector<ProjInst> treeProject(Tree &tree, const string& label);
 };
 
 #endif //PREFIXTREEESPAN_PROJINST_H

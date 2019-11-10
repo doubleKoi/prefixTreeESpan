@@ -7,6 +7,8 @@
 
 #include <utility>
 #include <string>
+#include <sstream>
+
 using namespace std;
 
 GrowElem::GrowElem(string label, int attachedTo) {
@@ -28,7 +30,10 @@ bool GrowElem::operator<(const GrowElem &GE) const {
 }
 
 string GrowElem::toString() {
-    return this->label + "," + to_string(this->attachedTo);
+    stringstream ss;
+    ss << this->attachedTo;
+    string att = ss.str();
+    return this->label + "," + att;
 }
 
 GrowElem::GrowElem(string GEStr) {

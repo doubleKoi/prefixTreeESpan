@@ -12,9 +12,9 @@ string PreTree::toString() {
     if (this->prefixTree.empty()) {
         return "";
     } else {
-        string result = this->prefixTree[0].label;
-        incrStr(result, this->prefixTree, 1);
-        result += "-1";
+        string result = this->prefixTree[0].label + " ";
+        result = incrStr(result, this->prefixTree, 1);
+        result += "-1 ";
         return result;
     }
 }
@@ -35,11 +35,11 @@ vector<PreTreeNode> PreTree::getPreTree() {
 }
 
 string PreTree::incrStr(string str, vector<PreTreeNode> &nodes, int attached) {
-    for (int i = 0; i < nodes.size(); i++) {
+    for (int i = attached; i < nodes.size(); i++) {
         if (nodes[i].parent == attached) {
-            str += nodes[i].label;
+            str += (nodes[i].label + " ");
             incrStr(str, nodes, i+1);
-            str += "-1";
+            str += "-1 ";
         }
     }
     return str;

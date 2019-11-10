@@ -14,11 +14,11 @@ void ProjInst::setProjInst(vector<ProjInstNode> &projInst) {
     }
 }
 
-vector<ProjInst> ProjInst::Project(Tree& tree, string &label) {
+vector<ProjInst> ProjInst::Project(Tree& tree, const string &label) {
     vector<ProjInst> result;
     for (auto iter = this->projInst.begin(); iter != this->projInst.end(); ++iter) {
-        vector<ProjInstNode> nodes;
         if (iter->label == label) {
+            vector<ProjInstNode> nodes;
             int beginIdx = tree.getIdxByPos(iter->pos);
             int p = tree.getIdxByPos((this->prefix)[0].pos);
             int endIdx = tree.getNodeByIdx(p).getMinusPos();
@@ -30,9 +30,14 @@ vector<ProjInst> ProjInst::Project(Tree& tree, string &label) {
                     nodes.push_back(nd);
                 }
             }
-            ProjInst newInst = ProjInst(this->tranID);
-            newInst.setProjInst(nodes);
-            result.push_back(newInst);
+
+            if (!nodes.empty()) {
+                ProjInst newInst = ProjInst(this->tranID);
+                newInst.setProjInst(nodes);
+                result.push_back(newInst);
+            } else {
+                continue;
+            }
         }
     }
     return result;
@@ -83,4 +88,39 @@ int ProjInst::getAttachedTo(Tree &tree, vector<ProjInstNode> &prefix, int pos) {
 
 int ProjInst::getTranID() {
     return this->tranID;
+}
+
+vector<ProjInst> ProjInst::treeProject(Tree &tree, const string &label) {
+    vector<ProjInst> instances;
+
+    for (int i = 0; i < tree.getTree().size(); i++) {
+        TreeNode node = tree.getTree()[i];
+        string lb = node.getLabel();
+        if (lb == label) {
+            vector<ProjInstNode> nodes;
+            ProjInst instance = ProjInst(tree.getTranID());
+
+            for (int j = i+1; j < tree.getTree().size(); j++) {
+                TreeNode nd = tree.getTree()[j];
+                if (nd.getPos() < node.getMinusPos()) {
+                    ProjInstNode node = {nd.getLabel(), nd.getPos(), 1};
+                    nodes.push_back(node);
+                } else {
+                    break;
+                }
+            }
+            if (nodes.empty()) {
+                continue;
+            }
+            instance.setProjInst(nodes);
+
+            vector<ProjInstNode> curPattern;
+            ProjInstNode n = {lb, node.getPos(), 0};
+            curPattern.push_back(n);
+            instance.setPrefix(curPattern);
+
+            instances.push_back(instance);
+        }
+    }
+    return instances;
 }

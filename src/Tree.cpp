@@ -21,7 +21,7 @@ Tree::Tree(int tranID, string line) {
 
     for(int i = 0; i < treeVector.size(); ++i) {
         if (treeVector[i] != "-1") {
-            RawNode rn = {treeVector[i], i+1};
+            RawNode rn = {treeVector[i], i};
             inStack.push(rn);
 
             //record unique label in this tree
@@ -37,6 +37,8 @@ Tree::Tree(int tranID, string line) {
             TreeNode tn = TreeNode(rn.label, rn.pos, i+1);
             this->tree.push_back(tn);
         }
+
+        sort(this->tree.begin(), this->tree.end());
     }
 
 }
@@ -54,39 +56,15 @@ vector<string> Tree::split(string &str, char delimiter) {
 }
 
 vector<string> Tree::getUniqLabels() {
-    return this->uniqLabels;
-}
-
-vector<ProjInst> Tree::Project(const string& label) {
-    vector<ProjInst> instances;
-
-    for (int i = 0; i < this->tree.size(); i++) {
-        TreeNode node = this->tree[i];
-        string lb = node.getLabel();
-        if (lb == label) {
-            vector<ProjInstNode> nodes;
-            ProjInst instance = ProjInst(this->tranID);
-
-            for (int j = i+1; j < tree.size(); j++) {
-                TreeNode nd = this->tree[j];
-                if (nd.getPos() < node.getMinusPos()) {
-                    ProjInstNode node = {nd.getLabel(), nd.getPos(), 1};
-                    nodes.push_back(node);
-                } else {
-                    break;
-                }
-            }
-            instance.setProjInst(nodes);
-
-            vector<ProjInstNode> curPattern;
-            ProjInstNode n = {lb, i, 0};
-            curPattern.push_back(n);
-            instance.setPrefix(curPattern);
-
-            instances.push_back(instance);
+    vector<string> result;
+    for (TreeNode node: this->tree) {
+        if (find(result.begin(), result.end(), node.getLabel()) != result.end()) {
+            continue;
+        } else {
+            result.push_back(node.getLabel());
         }
     }
-    return instances;
+    return result;
 }
 
 int Tree::getTranID() {
@@ -106,4 +84,8 @@ int Tree::getIdxByPos(int pos) {
 
 TreeNode Tree::getNodeByIdx(int idx) {
     return this->tree[idx];
+}
+
+vector<TreeNode> Tree::getTree() {
+    return this->tree;
 }
