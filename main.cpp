@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <fstream>
+#include <ctime>
 #include "include/Tree.h"
 #include "include/PreTree.h"
 #include "include/ProjDB.h"
@@ -63,6 +64,8 @@ void prefixTreeESpanMiner(string dataPath, double minSup) {
     //get frequent length-1 labels and begin mining
     //vector<string> freqLabels;
     cout<<"DB size: "<<DB.size()<<endl;
+    clock_t startTime = clock();
+
     auto iter = labelCount.begin();
     for(;iter != labelCount.end(); ++iter) {
         if (iter->second >= minSup * DB.size()) {
@@ -74,6 +77,8 @@ void prefixTreeESpanMiner(string dataPath, double minSup) {
             projDB.Fre(DB, singlePreTree, minSup * DB.size());
         }
     }
+    clock_t endTime = clock();
+    cout << (double)(endTime - startTime) / CLOCKS_PER_SEC << "s" << endl;
 }
 
 int main() {
