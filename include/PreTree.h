@@ -26,6 +26,7 @@ public:
     PreTree * grow(GrowElem &GE);
     string toString();
     vector<PreTreeNode> getPreTree();
+    static string incrStr(string str, vector<PreTreeNode> &nodes, int attached);
 };
 
 

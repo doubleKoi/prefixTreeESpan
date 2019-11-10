@@ -72,7 +72,7 @@ int ProjInst::getAttachedTo(Tree &tree, vector<ProjInstNode> &prefix, int pos) {
         int minusPos = tree.getNodeByIdx(idx).getMinusPos();
 
         if (pos < minusPos && pos > node.pos) {
-            result = i;
+            result = i + 1;
         } else {
             continue;
         }

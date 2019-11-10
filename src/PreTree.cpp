@@ -8,11 +8,15 @@
 #include <iostream>
 using namespace std;
 
-//TODO: implement toString()
 string PreTree::toString() {
-    string result;
-
-    return result;
+    if (this->prefixTree.empty()) {
+        return "";
+    } else {
+        string result = this->prefixTree[0].label;
+        incrStr(result, this->prefixTree, 1);
+        result += "-1";
+        return result;
+    }
 }
 
 PreTree::PreTree(const string& label) {
@@ -28,6 +32,17 @@ PreTree* PreTree::grow(GrowElem &GE) {
 
 vector<PreTreeNode> PreTree::getPreTree() {
     return this->prefixTree;
+}
+
+string PreTree::incrStr(string str, vector<PreTreeNode> &nodes, int attached) {
+    for (int i = 0; i < nodes.size(); i++) {
+        if (nodes[i].parent == attached) {
+            str += nodes[i].label;
+            incrStr(str, nodes, i+1);
+            str += "-1";
+        }
+    }
+    return str;
 }
 
 PreTree::PreTree() = default;
