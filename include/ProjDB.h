@@ -15,13 +15,13 @@ using namespace std;
 class ProjDB {
 private:
     vector<ProjInst> projDB;
-    vector<ProjInstNode> currentPattern;
+    PreTree currentPattern;
 
 public:
     ProjDB();
     vector<GrowElem> getFreqGEs(double minSup);
     static ProjDB ProDB(vector<Tree> &trees, const string& freLabel);
-    static ProjDB ProDB(ProjDB &projDB, PreTree &preTree);
+    static ProjDB ProDB(vector<Tree> &DB, ProjDB &projDB, PreTree &preTree, const string& label);
     bool empty();
     void Fre(vector<Tree> &DB, PreTree &preTree, double minSup);
     void setPattern(PreTree &pt);

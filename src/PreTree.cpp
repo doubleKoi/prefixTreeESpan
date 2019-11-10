@@ -11,20 +11,23 @@ using namespace std;
 //TODO: implement toString()
 string PreTree::toString() {
     string result;
-    for(string label: this->prefixTree) {
-        result += (label + " ");
-    }
+
     return result;
 }
 
 PreTree::PreTree(const string& label) {
-    this->prefixTree.push_back(label);
-    this->prefixTree.emplace_back("-1");
+    PreTreeNode node = {label, 0};
+    this->prefixTree.push_back(node);
 }
 
 PreTree* PreTree::grow(GrowElem &GE) {
-    this->prefixTree.push_back(GE.getLabel());
+    PreTreeNode node = {GE.getLabel(), GE.getAttached()};
+    this->prefixTree.push_back(node);
     return this;
+}
+
+vector<PreTreeNode> PreTree::getPreTree() {
+    return this->prefixTree;
 }
 
 PreTree::PreTree() = default;

@@ -36,3 +36,7 @@ GrowElem::GrowElem(string GEStr) {
     this->label = v[0];
     this->attachedTo = atoi(v[1].c_str());
 }
+
+int GrowElem::getAttached() {
+    return this->attachedTo;
+}

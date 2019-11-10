@@ -11,15 +11,21 @@
 
 using namespace std;
 
+struct PreTreeNode{
+    string label;
+    int parent;
+};
+
 class PreTree {
 private:
-    vector<string> prefixTree;      //subtree pattern
+    vector<PreTreeNode> prefixTree;      //subtree pattern
 
 public:
     PreTree();
     PreTree(const string& label);
     PreTree * grow(GrowElem &GE);
     string toString();
+    vector<PreTreeNode> getPreTree();
 };
 
 

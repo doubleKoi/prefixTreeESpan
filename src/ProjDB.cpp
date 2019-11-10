@@ -58,14 +58,20 @@ void ProjDB::Fre(vector<Tree> &DB, PreTree &preTree, double minSup) {
         PreTree* newPreTree = preTree.grow(GE);
         cout << newPreTree->toString() << endl;
 
-        ProjDB projectDB = ProjDB::ProDB(*(this), *newPreTree);
+        ProjDB projectDB = ProjDB::ProDB(DB, *(this), *newPreTree, GE.getLabel());
         projectDB.Fre(DB, *newPreTree, minSup);
     }
 }
 
-//TODO: get projected db from previous projected db
-ProjDB ProjDB::ProDB(ProjDB &projDB, PreTree &preTree) {
-    return ProjDB();
+
+ProjDB ProjDB::ProDB(vector<Tree> &DB, ProjDB &projDB, PreTree &preTree, const string& label) {
+    ProjDB result;
+    result.setPattern(preTree);
+    for (ProjInst inst: projDB.projDB) {
+        vector<ProjInst> proj = inst.Project(DB[inst.getTranID()], label);
+        result.insertProjInst(proj);
+    }
+    return result;
 }
 
 bool ProjDB::empty() {

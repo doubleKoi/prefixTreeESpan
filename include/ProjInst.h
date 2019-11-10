@@ -32,6 +32,8 @@ public:
     vector<ProjInst> Project(Tree &tree, string &label);
     vector<GrowElem> getGEs();
     void setPrefix(vector<ProjInstNode> &nodes);
+    static int getAttachedTo(Tree &tree, vector<ProjInstNode> &prefix, int pos);
+    int getTranID();
 };
 
 #endif //PREFIXTREEESPAN_PROJINST_H

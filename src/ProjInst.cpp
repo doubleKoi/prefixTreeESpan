@@ -14,22 +14,28 @@ void ProjInst::setProjInst(vector<ProjInstNode> &projInst) {
     }
 }
 
-//TODO: implement Project()
 vector<ProjInst> ProjInst::Project(Tree& tree, string &label) {
     vector<ProjInst> result;
     for (auto iter = this->projInst.begin(); iter != this->projInst.end(); ++iter) {
+        vector<ProjInstNode> nodes;
         if (iter->label == label) {
             int beginIdx = tree.getIdxByPos(iter->pos);
             int p = tree.getIdxByPos((this->prefix)[0].pos);
             int endIdx = tree.getNodeByIdx(p).getMinusPos();
 
-            for (auto newIter = iter; newIter != this->projInst.end(); ++newIter) {
+            for (auto newIter = iter+1; newIter != this->projInst.end(); ++newIter) {
                 if ((*newIter).pos > beginIdx && (*newIter).pos < endIdx) {
-
+                    int attached = getAttachedTo(tree, this->prefix, (*newIter).pos);
+                    ProjInstNode nd = {(*newIter).label, (*newIter).pos, attached};
+                    nodes.push_back(nd);
                 }
             }
+            ProjInst newInst = ProjInst(this->tranID);
+            newInst.setProjInst(nodes);
+            result.push_back(newInst);
         }
     }
+    return result;
 }
 
 ProjInst::ProjInst(int tranID) {
@@ -56,4 +62,25 @@ void ProjInst::setPrefix(vector<ProjInstNode> &nodes) {
     for (ProjInstNode node: nodes) {
         this->prefix.push_back(node);
     }
+}
+
+int ProjInst::getAttachedTo(Tree &tree, vector<ProjInstNode> &prefix, int pos) {
+    int result = 0;
+    for (int i = 0; i < prefix.size(); i++) {
+        ProjInstNode node = prefix[i];
+        int idx = tree.getIdxByPos(node.pos);
+        int minusPos = tree.getNodeByIdx(idx).getMinusPos();
+
+        if (pos < minusPos && pos > node.pos) {
+            result = i;
+        } else {
+            continue;
+        }
+    }
+
+    return result;
+}
+
+int ProjInst::getTranID() {
+    return this->tranID;
 }

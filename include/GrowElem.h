@@ -17,6 +17,7 @@ public:
     GrowElem(string label, int attachedTo);
     GrowElem(string GEStr);
     string getLabel();
+    int getAttached();
     string toString();  //use GE string as key in map
     bool operator==(const GrowElem &GE) const;
     bool operator<(const GrowElem &GE) const;
