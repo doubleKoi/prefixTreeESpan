@@ -1,3 +1,23 @@
-# prefixTreeESpan
+## 相关说明
 
-Assignment 1 for course Mining and Management of Large-Scale Graph Data
+#### 文件结构
+
+```
+ prefixTreeESpan
+├─cmake-build-debug
+├─data…………………………………………………………………………数据
+├─include…………………………………………………………………头文件
+├─output……………………………………………………………………输出结果
+├─src……………………………………………………………………………代码实现
+├─CMakeLists.txt………………………………………………CMakeLists
+└─main.cpp………………………………………………………………主程序
+
+```
+
+#### 运行方式
+
+通过main.cpp中的宏定义可以更改选用的数据集和支持度，实验结果会保存在`output/{数据集名称}_{支持度}.txt`文件中。
+
+#### 编译说明
+
+本程序在windows下编写，因此依赖某些特有库。经测试在macOS和Ubuntu系统下无法编译生成可执行文件，需要在windows环境下编译运行。

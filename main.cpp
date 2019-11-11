@@ -1,9 +1,12 @@
+#define DATA "T1M"
+#define MINSUP 0.02
+
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include <map>
 #include <string>
 #include <fstream>
+#include <sstream>
 #include <ctime>
 #include "include/Tree.h"
 #include "include/PreTree.h"
@@ -78,15 +81,17 @@ void prefixTreeESpanMiner(string dataPath, double minSup) {
         }
     }
     clock_t endTime = clock();
-    cout << (double)(endTime - startTime) / CLOCKS_PER_SEC << "s" << endl;
+    cout << "time: " << (double)(endTime - startTime) / CLOCKS_PER_SEC << "s" << endl;
 }
 
 int main() {
-    string datasets[4] = {"CSlog", "D10", "F5", "T1M"};
-/*    for (string dataset: datasets) {
-        string dataPath = "data/" + dataset + ".data";
-        prefixTreeESpanMiner(dataPath, 0.5);
-    }*/
-    prefixTreeESpanMiner("../data/D10.data", 0.1);
+    //string datasets[4] = {"CSlog", "D10", "F5", "T1M"};
+    stringstream ss;
+    ss << MINSUP;
+    static std::ofstream ofs("../output/" + string(DATA) + "_" + ss.str() + ".txt");
+    std::cout.rdbuf(ofs.rdbuf());
+    double minSup = MINSUP;
+    string dataPath = "../data/" + string(DATA) + ".data";
+    prefixTreeESpanMiner(dataPath, MINSUP);
     return 0;
 }
